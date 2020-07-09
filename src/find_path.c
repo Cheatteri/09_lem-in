@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:10:51 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/09 00:29:27 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/09 23:48:29 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_path	*set_path_len_list(t_mem *mem)
 	while (n > -1)
 	{
 		i = 0;
+//		ft_printf("paths[i].w=%d\n", paths[i].w);
 		while (paths[i + 1].i_first != -1)
 		{
 			if (paths[i].w > paths[i + 1].w)
@@ -113,11 +114,22 @@ void	find_path(t_mem *mem)
 			prir(mem);
 			if (!(cur = set_path_len_list(mem))) //
 				ft_error("Path error.\n");
-			mem->paths = cur;
-			prip(mem);
-			ft_error("DONE!\n");
+			set_ants_per_room(mem, cur);
+//			ft_error("DONE!\n");
 //			set_ants_per_room(mem, cur); //
-
+			if (mem->paths == NULL || cur[0].nb_ants + cur[0].w < mem->paths[0].nb_ants + mem->paths[0].w)
+			{
+//				free(mem->paths);
+				mem->paths = cur;
+			}
+			else
+			{
+//				free(cur);
+//				prip(mem);
+//				exit(0);
+				stop = 1;
+			}
+			prip(mem);
 
 		}
 	}

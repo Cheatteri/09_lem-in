@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:05:03 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/09 01:22:58 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/09 23:44:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,14 @@ void		rev_links(t_mem *mem);
 void		rev_rooms(t_mem *mem);
 
 /*
-** trail.c.c
+** trail.c
 */
 t_trail		*add_trail(t_trail *new, t_trail *alst);
 t_trail		*new_trail(t_room *room);
 
-
+/*
+** ants.c
+*/
+void		set_ants_per_room(t_mem *mem, t_path *paths);
 
 #endif

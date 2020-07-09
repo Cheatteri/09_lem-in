@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:14:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/09 01:18:31 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/09 23:52:23 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,18 @@ void prip(t_mem *mem)
 	int i = 0;
 
 	path = mem->paths;
-	trail = path->rooms;
-	while (trail)
+	while(path[i].i_first != -1)
 	{
-		ft_printf("%s,", trail->room->name);
-		trail = trail->prev;
+		ft_printf("name='%s'",path[i].name);
+		trail = path[i].rooms;
+		while (trail)
+		{
+			ft_printf("%s,", trail->room->name);
+			trail = trail->prev;
+		}
+		ft_printf("\n'i%d'\n",i);
 		i++;
 	}
-	ft_printf("\n'i%d'\n",i);
 }	
 
 void pril(t_mem *mem)
@@ -90,7 +94,7 @@ int		main(int ac, char **av)
 	{
 		mem = ft_init();
 //		prir(mem);
-		pril(mem);
+//		pril(mem);
 		if (mem->links[OUT(mem->start)][IN(mem->end)] == 1)
 			ft_printf("-----------suora-----------\n");
 		find_path(mem);
