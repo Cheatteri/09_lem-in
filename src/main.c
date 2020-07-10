@@ -6,101 +6,71 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:14:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/09 23:52:23 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 20:00:28 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem.h"
 
-void prip(t_mem *mem)
+void	ft_error(char *str, t_mem *mem)
 {
-	t_path *path;
-	t_trail *trail;
-	int i = 0;
-
-	path = mem->paths;
-	while(path[i].i_first != -1)
+	if (mem == NULL)
 	{
-		ft_printf("name='%s'",path[i].name);
-		trail = path[i].rooms;
-		while (trail)
-		{
-			ft_printf("%s,", trail->room->name);
-			trail = trail->prev;
-		}
-		ft_printf("\n'i%d'\n",i);
-		i++;
+		ft_putstr_fd(str, 2);
+		exit(0);
 	}
-}	
-
-void pril(t_mem *mem)
-{
-	int i = 0, count = 0;
-	int j;
-
-	while (i < mem->n_rooms * 2)
+	if (mem->op && mem->op[21] == 1)
 	{
-		j = 0;
-		while (j < mem->n_rooms * 2)
-		{
-			if (mem->links[i][j] == 1)
-				count++;
-			ft_printf("%d,", mem->links[i][j++]);
-		}
-		ft_printf("\n");
-		i++;
+		ft_putstr_fd("ERROR: ", 2);
+		ft_putstr_fd(str, 2);
 	}
-	ft_printf("\nDDD%d\n", count);
-}
-
-void prir(t_mem *mem)
-{
-	int i = 0;
-	while (i < mem->n_rooms)
-	{
-		ft_printf("%s, %d\n", mem->rooms[i].name, mem->rooms[i].w);
-		i++;
-	}
-}
-
-void	print_rows(t_mem *mem)
-{
-	t_row *row;
-
-	rev_rows(mem);
-	row = mem->rows;
-	while (row)
-	{
-//		ft_putnbr(row->n_row);
-		ft_putendl(row->line);
-		row = row->next;
-	}
-}
-
-void	ft_error(char *str)
-{
-	ft_putstr_fd(str, 2);
-//	system("leaks lem-in");
+	else
+		ft_putstr_fd("ERROR.\n", 2);
+	if (mem->op && mem->op[20] == 1)
+		system("leaks lem-in");
 	exit(0);
+}
+
+void	print_all(t_mem *mem)
+{
+	if (mem->op[8] == 0)
+		print_rows(mem);
+	if (mem->op[6] == 0)
+		print_turns(mem);
+	if (mem->op[10] == 1)
+		print_paths(mem);
+	if (mem->op[25] == 1)
+		ft_printf("Number of ants: %d.\n", mem->n_ants);
+	if (mem->op[12] == 1)
+		ft_printf("Number of lines: %d.\n", mem->n_lines);
 }
 
 int		main(int ac, char **av)
 {
 	t_mem *mem;
 
+	mem = NULL;
 	if (ac > 2)
 		ft_printf("usage: ./lem-in < source_file\n");
 	else
 	{
-		mem = ft_init();
-//		prir(mem);
-//		pril(mem);
+		mem = ft_init(av[1], ac);
+		if (mem->op[14] == 1)
+			print_link_map(mem);
 		if (mem->links[OUT(mem->start)][IN(mem->end)] == 1)
-			ft_printf("-----------suora-----------\n");
-		find_path(mem);
-//		print_rows(mem);
-		ft_printf("%s\n", av[0]);
+		{
+			print_rows(mem);
+			from_start_to_end(mem);
+		}
+		else
+		{
+			find_path(mem);
+//			exit(0);
+			move_ants(mem);
+			print_all(mem);
+		}
 	}
-//	system("leaks lem-in");
+	if (mem->op[20] == 1)
+		system("leaks lem-in");
 	return (0);
 }

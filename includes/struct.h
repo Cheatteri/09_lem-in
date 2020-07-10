@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 19:49:46 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/09 01:26:17 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 18:24:58 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ typedef struct		s_row
 	struct s_row	*next;
 }					t_row;
 
+typedef struct		s_ant
+{
+	int				name;
+	int				turn;
+	t_trail			*room;
+	struct s_ant	*next;
+}					t_ant;
+
 typedef struct		s_mem
 {
 	int				n_ants;
@@ -67,11 +75,17 @@ typedef struct		s_mem
 	int				end;
 	struct s_room	*r_lst;
 	struct s_link	*l_lst;
+	struct s_ant	*a_lst;
+	struct s_ant	*a_que;
+	struct s_ant	*tmp;
 	int				**links;
 	t_room			*rooms;
 	t_path			*paths;
-	t_row			*rows;
+	struct s_row	*rows;
 	int				count;
+	int				n_lines;
+	int				*op;
+	int				speed;
 }					t_mem;
 
 #endif

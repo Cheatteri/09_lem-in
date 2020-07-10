@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:39:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/09 01:17:13 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 17:22:04 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	make_links(t_mem *mem)
 	link = mem->l_lst;
 	while (link)
 	{
-		ft_printf("%s,%s,%d,%d\n", link->start, link->end, link->id_start, link->id_end);
+//		ft_printf("%s,%s,%d,%d\n", link->start, link->end, link->id_start, link->id_end);
 		if (ft_strcmp(link->start, link->end) != 0)
 			search(mem, link);
 		if (link->id_start != -1 && link->id_end != -1)

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:05:03 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/09 23:44:42 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 19:21:24 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,32 @@
 # define IN(x) (x * 2)
 # define OUT(x) (x * 2 + 1)
 
+# define OPTION_CHARS "aefhlnprst"
+
+//-a n_ants
+//-f leaks
+//-s speed
+//-p paths
+//-l link_map
+//-n line number
+//-t not turns
+//-r rows
+//-e errors?
+
 // vaihda ft_printf pois isolla mapil tulostus tekee 27.0s ja print 1.8s
 
-void		ft_error(char *str);
-t_mem		*ft_init(void);
+void		ft_error(char *str, t_mem *mem);
+t_mem		*ft_init(char *str, int n);
 
 /*
 ** utils.c
 */
-int 	reset_weights(t_mem *mem);
+int			*options(char *str, int n);
+void		start_end_rooms(t_mem *mem);
+void		send_ant_to_que(t_ant *a, t_ant **alst, t_mem *mem);
+int 		reset_weights(t_mem *mem);
 
-void pril(t_mem *mem); //in main->poista
 void prir(t_mem *mem); //in main->poista
-void prip(t_mem *mem); //in main->poista
 
 /*
 ** parse.c
@@ -46,7 +59,7 @@ void		parse_lines(t_mem *mem);
 */
 int			valid_room(char *line, t_mem *mem, int pos);
 int			valid_link(char *line);
-t_link		*init_link(char *line, t_link **alst);
+t_link		*init_link(char *line, t_link **alst, t_mem *mem);
 
 void		make_links(t_mem *mem);
 
@@ -72,6 +85,26 @@ t_trail		*new_trail(t_room *room);
 /*
 ** ants.c
 */
-void		set_ants_per_room(t_mem *mem, t_path *paths);
+void		ants_to_room(t_mem *mem, t_path *paths);
+
+/*
+** move.c
+*/
+void		from_start_to_end(t_mem *mem);
+void		move_ants(t_mem *mem);
+
+/*
+** print.c
+*/
+void		print_rows(t_mem *mem);
+void		print_link_map(t_mem *mem);
+void		print_paths(t_mem *mem);
+void		print_turns(t_mem *mem);
+
+/*
+** free.c
+*/
+int			is_that_char(char c, char *str);
+void		free_paths(t_path *paths);
 
 #endif

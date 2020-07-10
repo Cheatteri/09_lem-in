@@ -6,13 +6,13 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:16:43 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/08 23:51:29 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 17:57:10 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem.h"
 
-int		nb_links_from(t_mem *mem, int index, int *cur)
+int		n_links(t_mem *mem, int index, int *cur)
 {
 	int n;
 	int i;
@@ -24,12 +24,9 @@ int		nb_links_from(t_mem *mem, int index, int *cur)
 	{
 		while (!n && cur[i] != -1)
 		{
-			j = 0;
-			while (j < mem->n_rooms * 2)
-			{
+			j = -1;
+			while (++j < mem->n_rooms * 2)
 				n += mem->rooms[j / 2].w < 2 ? mem->links[cur[i]][j] : 0;
-				j++;
-			}
 			i++;
 		}
 	}
@@ -37,11 +34,11 @@ int		nb_links_from(t_mem *mem, int index, int *cur)
 	{
 		while (i < mem->n_rooms * 2)
 		{
-			n += mem->rooms[i / 2].w < 2 ? mem->links[index][i] : 0;
+//			n += mem->rooms[i / 2].w < 2 ? mem->links[index][i] : 0;
+			n += mem->links[index][i];
 			i++;
 		}
 	}
-//	ft_printf("%d\n", n);
 	return (n);
 }
 
@@ -52,13 +49,13 @@ int		process(t_mem *mem, int *next, int *cur, int i)
 	j = 0;
 	while (j < mem->n_rooms * 2)
 	{
-		if (mem->links[cur[i]][j] == 1 && mem->rooms[j / 2].w < 2)
+		if (mem->links[cur[i]][j] == 1 && mem->rooms[j / 2].w < mem->speed)
 		{
 			if (j == IN(mem->start))
 			{
 				mem->links[cur[i]][IN(mem->start)] = 0;
 				mem->links[IN(mem->start)][cur[i]] = 1;
-//				free(next);
+				free(next);
 				return (cur[i]);
 			}
 			next[mem->count++] = j;
@@ -81,7 +78,7 @@ void	set_orientation(t_mem *mem, int *cur, int *j)
 			mem->links[cur[i]][*j] = 0;
 			mem->links[*j][cur[i]] = 1;
 			*j = cur[i];
-			break ;
+			i = -1;
 		}
 		i++;
 	}
@@ -93,8 +90,8 @@ int		bfs_recursive(t_mem *mem, int *cur)
 	int i;
 	int j;
 
-	j = 0;
-	if (nb_links_from(mem, 0, cur))
+	j = -1;
+	if (n_links(mem, 0, cur))
 	{
 		next = (int*)malloc(sizeof(int) * (mem->n_rooms * mem->n_rooms));
 		mem->count = 0;
@@ -109,7 +106,7 @@ int		bfs_recursive(t_mem *mem, int *cur)
 		j = bfs_recursive(mem, next);
 		if (j >= 0)
 			set_orientation(mem, cur, &j);
-//		free(next);
+		free(next);
 	}
 	return (j);
 }
@@ -121,9 +118,7 @@ int		bfs(t_mem *mem)
 	int i;
 	int index;
 
-	i = nb_links_from(mem, OUT(mem->end), NULL) + 1;
-	ft_printf("i = %d\n", i);
-	start = (int*)malloc(sizeof(int) * (nb_links_from(mem, OUT(mem->end), NULL) + 1));
+	start = (int*)malloc(sizeof(int) * (n_links(mem, OUT(mem->end), NULL) + 1));
 	count = 0;
 	i = 2;
 	while (i < mem->n_rooms * 2)
@@ -142,6 +137,6 @@ int		bfs(t_mem *mem)
 		mem->links[index][OUT(mem->end)] = 1;
 		index = 0;
 	}
-//	free(start);
+	free(start);
 	return (index);
 }

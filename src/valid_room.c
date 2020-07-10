@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 12:46:49 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/08 21:06:33 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 18:01:11 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_room	*init_room(int pos, char **str, t_mem *mem, t_room **alst)
 	t_room *room;
 
 	if (!(room = (t_room*)malloc(sizeof(t_room))))
-		ft_error("malloc_error\n");
+		ft_error("malloc_error\n", mem);
 	room->name = ft_strdup(str[0]);
 	room->x = ft_strdup(str[1]);
 	room->y = ft_strdup(str[2]);
@@ -26,12 +26,12 @@ t_room	*init_room(int pos, char **str, t_mem *mem, t_room **alst)
 	room->w = 0;
 	room->ant_id = 0;
 	if (alst == NULL)
-        room->next = NULL;
-    else
-    {
-        room->next = *alst;
-        *alst = room;
-    }
+		room->next = NULL;
+	else
+	{
+		room->next = *alst;
+		*alst = room;
+	}
 	return (room);
 }
 

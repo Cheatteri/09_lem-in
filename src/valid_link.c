@@ -6,20 +6,20 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 13:34:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/08 20:32:08 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 18:02:22 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem.h"
 
-t_link	*init_link(char *line, t_link **alst)
+t_link	*init_link(char *line, t_link **alst, t_mem *mem)
 {
 	t_link	*link;
 	int		i;
 	int		j;
 
 	if (!(link = (t_link*)malloc(sizeof(t_link))))
-		ft_error("malloc_error\n");
+		ft_error("malloc_error\n", mem);
 	i = 0;
 	while (line[i] != '-')
 		i++;
@@ -31,12 +31,12 @@ t_link	*init_link(char *line, t_link **alst)
 	link->id_start = -1;
 	link->id_end = -1;
 	if (alst == NULL)
-        link->next = NULL;
-    else
-    {
-        link->next = *alst;
-        *alst = link;
-    }
+		link->next = NULL;
+	else
+	{
+		link->next = *alst;
+		*alst = link;
+	}
 	return (link);
 }
 

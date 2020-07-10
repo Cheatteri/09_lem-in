@@ -6,17 +6,11 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 21:30:07 by jhakala           #+#    #+#             */
-/*   Updated: 2020/02/16 20:56:44 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 19:43:05 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int		ft_error(char *str)
-{
-	ft_putstr_fd(str, 2);
-	return (0);
-}
 
 long long int	ft_atoi_mod(const char *str)
 {
@@ -37,8 +31,10 @@ long long int	ft_atoi_mod(const char *str)
 		str++;
 	}
 	if ((*str > 57 || *str < 48) && *str != '\0')
-		return (ft_error("Error: ft_atoi_mod\n"));
+		return (0);
 	if (res > 9223372036854775807)
-		return (ft_error("Error: ft_atoi_mod\n"));
+		return (0);
+	if (res > 2147483647 || minus == -1)
+		return (0);
 	return (res * minus);
 }

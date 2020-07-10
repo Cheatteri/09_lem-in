@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 00:15:23 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/09 00:19:33 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 16:35:51 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_trail	*add_trail(t_trail *new, t_trail *alst)
 	new->prev = alst;
 	return (new);
 }
-	
+
 t_trail	*new_trail(t_room *room)
 {
 	t_trail *new;

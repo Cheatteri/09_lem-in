@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:10:51 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/09 23:48:29 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/10 18:11:13 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		get_path(t_mem *mem, t_trail **rooms, int index)
 {
-	int next;
-	t_trail *link;
-	int rval;
+	int		next;
+	t_trail	*link;
+	int		ret;
 
 	if (index != mem->end && index != mem->start)
 	{
@@ -30,9 +30,9 @@ int		get_path(t_mem *mem, t_trail **rooms, int index)
 	{
 		if (mem->links[IN(index)][OUT(next)])
 		{
-			if ((rval = get_path(mem, rooms, next)) == -1)
+			if ((ret = get_path(mem, rooms, next)) == -1)
 				return (-1);
-			return (rval + 1);
+			return (ret + 1);
 		}
 		next++;
 	}
@@ -63,27 +63,14 @@ void	fill(t_mem *mem, t_path *paths, int n)
 	paths[n].w = 0;
 }
 
-t_path	*set_path_len_list(t_mem *mem)
+void	sort_path(int n, t_path *paths)
 {
-	int n;
-	int i;
-	t_path *paths;
-	t_path tmp;
+	int		i;
+	t_path	tmp;
 
-	n = 0;
-	i = 2;
-	while (i < mem->n_rooms)
-	{
-		if (mem->links[IN(mem->start)][OUT(i)])
-			n++;
-		i++;
-	}
-	paths = (t_path*)malloc(sizeof(t_path) * (n + 1));
-	fill(mem, paths, n);
 	while (n > -1)
 	{
 		i = 0;
-//		ft_printf("paths[i].w=%d\n", paths[i].w);
 		while (paths[i + 1].i_first != -1)
 		{
 			if (paths[i].w > paths[i + 1].w)
@@ -96,9 +83,28 @@ t_path	*set_path_len_list(t_mem *mem)
 		}
 		n--;
 	}
+}
+
+t_path	*set_path_len_list(t_mem *mem)
+{
+	int		n;
+	int		i;
+	t_path	*paths;
+
+	n = 0;
+	i = 2;
+	while (i < mem->n_rooms)
+	{
+		if (mem->links[IN(mem->start)][OUT(i)])
+			n++;
+		i++;
+	}
+	paths = (t_path*)malloc(sizeof(t_path) * (n + 1));
+	fill(mem, paths, n);
+	sort_path(n, paths);
 	return (paths);
 }
-		
+
 void	find_path(t_mem *mem)
 {
 	int		stop;
@@ -107,30 +113,24 @@ void	find_path(t_mem *mem)
 	stop = 0;
 	while (!stop && reset_weights(mem))
 	{
-		if ((stop = bfs(mem)) == -1) //
-			ft_error("No path.\n");
+		if ((stop = bfs(mem)) == -1 && mem->paths == NULL)
+			ft_error("No path.\n", mem);
 		else if (!stop)
 		{
-			prir(mem);
-			if (!(cur = set_path_len_list(mem))) //
-				ft_error("Path error.\n");
-			set_ants_per_room(mem, cur);
-//			ft_error("DONE!\n");
-//			set_ants_per_room(mem, cur); //
-			if (mem->paths == NULL || cur[0].nb_ants + cur[0].w < mem->paths[0].nb_ants + mem->paths[0].w)
+			if (!(cur = set_path_len_list(mem)))
+				ft_error("Path error.\n", mem);
+			ants_to_room(mem, cur);
+			if (mem->paths == NULL || cur[0].nb_ants + cur[0].w <
+				mem->paths[0].nb_ants + mem->paths[0].w)
 			{
-//				free(mem->paths);
+				free_paths(mem->paths);
 				mem->paths = cur;
 			}
 			else
 			{
-//				free(cur);
-//				prip(mem);
-//				exit(0);
+				free_paths(cur);
 				stop = 1;
 			}
-			prip(mem);
-
 		}
 	}
 }

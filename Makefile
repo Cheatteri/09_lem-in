@@ -4,7 +4,9 @@ SRC = main.c \
     init.c \
 	parse.c valid_room.c valid_link.c rev.c utils.c \
 	make_links.c \
-	find_path.c bfs.c trail.c ants.c
+	find_path.c bfs.c trail.c ants.c \
+	move.c print.c \
+	free.c
 
 
 S_DIR = src
