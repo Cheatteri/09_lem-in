@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:10:51 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 17:29:55 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 19:20:30 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void	find_path(t_mem *mem)
 	while (!stop && reset_weights(mem))
 	{
 		if ((stop = bfs(mem)) == -1 && mem->paths == NULL)
-			ft_error("No path.\n", mem);
-		else if (!stop)
+			stop = check_carefully(mem);
+		if (!stop)
 		{
 			if (!(cur = set_path_len_list(mem)))
 				ft_error("Path error.\n", mem);

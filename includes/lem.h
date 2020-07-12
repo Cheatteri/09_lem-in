@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:05:03 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 18:04:00 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 19:20:13 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void		print_turns(t_mem *mem);
 int			is_that_char(char c, char *str);
 void		free_from_que(t_ant **a, t_mem *mem);
 void		free_paths(t_path *paths);
+int			check_carefully(t_mem *mem);
 
 #endif

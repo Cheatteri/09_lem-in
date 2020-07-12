@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:16:43 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 17:48:06 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 19:18:40 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ int		process(t_mem *mem, int *next, int *cur, int i)
 				free(next);
 				return (cur[i]);
 			}
-			next[mem->count++] = j;
-			mem->rooms[j / 2].w++;
+			next[mem->count++] = j; //
+			if (j % 2 == 0)
+				mem->rooms[j / 2].w++;
 		}
 		j++;
 	}
