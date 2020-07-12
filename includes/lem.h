@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:05:03 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 17:31:22 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 18:04:00 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,6 @@
 
 # define OPTION_CHARS "aefhlnpqrst"
 
-//-a n_ants
-//-f leaks
-//-s speed
-//-p paths
-//-l link_map
-//-n line number
-//-t not turns
-//-r rows
-//-e errors?
-//-q requested
-
-// vaihda ft_printf pois isolla mapil tulostus tekee 27.0s ja print 1.8s
-
 void		ft_error(char *str, t_mem *mem);
 t_mem		*ft_init(char *str, int n);
 
@@ -45,9 +32,7 @@ t_mem		*ft_init(char *str, int n);
 int			*options(char *str, int n);
 void		start_end_rooms(t_mem *mem);
 void		send_ant_to_que(t_ant *a, t_ant **alst, t_mem *mem);
-int 		reset_weights(t_mem *mem);
-
-void prir(t_mem *mem); //in main->poista
+int			reset_weights(t_mem *mem);
 
 /*
 ** parse.c

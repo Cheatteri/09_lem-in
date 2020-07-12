@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:14:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 17:34:48 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 18:03:41 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,27 @@ void	print_all(t_mem *mem)
 		ft_printf("Number of ants: %d.\n", mem->n_ants);
 	if (mem->op[12] == 1)
 		ft_printf("Number of lines: %d.\n", mem->n_lines);
-	if (mem->op[9] == 1)
+	if (mem->op[9] == 1 && mem->tmp_count > 0)
 	{
 		ft_printf("#Here is the number of");
 		ft_printf(" lines required: %d\n", mem->tmp_count);
 	}
 }
+
+/*
+** flags:
+** -a	show number of ants at the end
+** -e	show error message, incase of error
+** -f	show leaks
+** -h	show how to use
+** -l	show link map for debug
+** -n	show number of result rows
+** -p	show path combination
+** -q	show requested line count, if input had it
+** -r	doesn't show input rows
+** -s	make it faster but, possibly less accurate in big maps
+** -t	doesn't show result rows
+*/
 
 int		main(int ac, char **av)
 {
