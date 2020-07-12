@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:16:43 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/10 17:57:10 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 17:48:06 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		n_links(t_mem *mem, int index, int *cur)
 	{
 		while (i < mem->n_rooms * 2)
 		{
-//			n += mem->rooms[i / 2].w < 2 ? mem->links[index][i] : 0;
 			n += mem->links[index][i];
 			i++;
 		}
@@ -120,15 +119,14 @@ int		bfs(t_mem *mem)
 
 	start = (int*)malloc(sizeof(int) * (n_links(mem, OUT(mem->end), NULL) + 1));
 	count = 0;
-	i = 2;
-	while (i < mem->n_rooms * 2)
+	i = 1;
+	while (++i < mem->n_rooms * 2)
 	{
 		if (mem->links[OUT(mem->end)][i] == 1)
 		{
 			start[count++] = i;
 			mem->rooms[i / 2].w++;
 		}
-		i++;
 	}
 	start[count] = -1;
 	if ((index = bfs_recursive(mem, start)) >= 0)

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:10:51 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/10 18:11:13 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 17:29:55 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	fill(t_mem *mem, t_path *paths, int n)
 		if (mem->links[IN(mem->start)][OUT(i)])
 		{
 			paths[count].name = mem->rooms[i].name;
-			paths[count].i_first = i;
+			paths[count].first = i;
 			paths[count].rooms = NULL;
 			paths[count].w = get_path(mem, &(paths[count].rooms), i);
 			count++;
@@ -59,7 +59,7 @@ void	fill(t_mem *mem, t_path *paths, int n)
 		i++;
 	}
 	paths[n].name = NULL;
-	paths[n].i_first = -1;
+	paths[n].first = -1;
 	paths[n].w = 0;
 }
 
@@ -71,7 +71,7 @@ void	sort_path(int n, t_path *paths)
 	while (n > -1)
 	{
 		i = 0;
-		while (paths[i + 1].i_first != -1)
+		while (paths[i + 1].first != -1)
 		{
 			if (paths[i].w > paths[i + 1].w)
 			{
@@ -120,17 +120,16 @@ void	find_path(t_mem *mem)
 			if (!(cur = set_path_len_list(mem)))
 				ft_error("Path error.\n", mem);
 			ants_to_room(mem, cur);
-			if (mem->paths == NULL || cur[0].nb_ants + cur[0].w <
-				mem->paths[0].nb_ants + mem->paths[0].w)
+			if (mem->paths == NULL || cur[0].n_ants + cur[0].w <
+				mem->paths[0].n_ants + mem->paths[0].w)
 			{
 				free_paths(mem->paths);
 				mem->paths = cur;
+				if (mem->paths[0].w + mem->paths[0].n_ants <= mem->tmp_count)
+					break ;
 			}
-			else
-			{
+			else if ((stop = 1))
 				free_paths(cur);
-				stop = 1;
-			}
 		}
 	}
 }

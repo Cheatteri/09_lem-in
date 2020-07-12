@@ -6,7 +6,7 @@
 #    By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/16 11:07:07 by jhakala           #+#    #+#              #
-#    Updated: 2020/06/20 02:14:48 by jhakala          ###   ########.fr        #
+#    Updated: 2020/07/12 14:09:23 by jhakala          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 	ft_tolower.c ft_toupper.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 	ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_swap_content.c ft_swap_address.c \
 	ft_countdigit.c ft_lstcontent.c ft_lstprint.c ft_lstrev.c get_next_line.c \
-	ft_wordlen.c ft_atoi_base.c ft_atoi_mod.c \
+	get_next_line_len.c ft_wordlen.c ft_atoi_base.c ft_atoi_mod.c \
 	f_printf.c f_parse.c f_flags_handle.c f_length_types.c f_write.c f_writef.c \
 	f_type_bases.c f_flags_utils.c \
 	type_c.c type_d.c type_s.c type_o.c type_x.c type_f.c

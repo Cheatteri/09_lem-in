@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:14:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/10 20:00:28 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 17:34:48 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ void	print_all(t_mem *mem)
 		ft_printf("Number of ants: %d.\n", mem->n_ants);
 	if (mem->op[12] == 1)
 		ft_printf("Number of lines: %d.\n", mem->n_lines);
+	if (mem->op[9] == 1)
+	{
+		ft_printf("#Here is the number of");
+		ft_printf(" lines required: %d\n", mem->tmp_count);
+	}
 }
 
 int		main(int ac, char **av)
@@ -65,7 +70,6 @@ int		main(int ac, char **av)
 		else
 		{
 			find_path(mem);
-//			exit(0);
 			move_ants(mem);
 			print_all(mem);
 		}

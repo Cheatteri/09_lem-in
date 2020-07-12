@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 12:23:06 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/10 18:02:33 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 17:45:59 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int		get_pos(char *line, t_mem *mem)
 		mem->end = mem->n_rooms;
 		return (2);
 	}
+	else if (ft_strncmp(line, "#Here is the number of lines requi", 34) == 0)
+		mem->tmp_count = ft_atoi(line + 38);
 	return (0);
 }
 
@@ -51,13 +53,11 @@ void	parse_lines(t_mem *mem)
 {
 	char	*line;
 	int		pos;
-	int		n;
 	int		skip;
 
 	pos = 0;
-	n = 0;
 	skip = 0;
-	while (get_next_line(FROM, &line) > 0)
+	while (get_next_line_len(FROM, &line, 10) > 0)
 	{
 		if (line[0] == '#')
 			pos = get_pos(line, mem);
@@ -67,11 +67,12 @@ void	parse_lines(t_mem *mem)
 			init_link(line, &mem->l_lst, mem);
 		else
 		{
-			new_row(line, &mem->rows, mem);
+			if (line[0] && line[0] != '\n')
+				new_row(line, &mem->rows, mem);
+			else
+				free(line);
 			break ;
 		}
 		new_row(line, &mem->rows, mem);
 	}
-	rev_rooms(mem);
-	rev_links(mem);
 }

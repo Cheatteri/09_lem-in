@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:05:03 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/10 19:21:24 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 17:31:22 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define IN(x) (x * 2)
 # define OUT(x) (x * 2 + 1)
 
-# define OPTION_CHARS "aefhlnprst"
+# define OPTION_CHARS "aefhlnpqrst"
 
 //-a n_ants
 //-f leaks
@@ -32,6 +32,7 @@
 //-t not turns
 //-r rows
 //-e errors?
+//-q requested
 
 // vaihda ft_printf pois isolla mapil tulostus tekee 27.0s ja print 1.8s
 
@@ -105,6 +106,7 @@ void		print_turns(t_mem *mem);
 ** free.c
 */
 int			is_that_char(char c, char *str);
+void		free_from_que(t_ant **a, t_mem *mem);
 void		free_paths(t_path *paths);
 
 #endif

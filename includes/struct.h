@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 19:49:46 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/10 18:24:58 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 15:23:33 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ typedef struct		s_trail
 typedef struct		s_path
 {
 	char			*name;
-	int				i_first;
+	int				first;
 	int				w;
-	int				nb_ants;
-	int				nb_remaining;
+	int				n_ants;
+	int				n_remaining;
 	t_trail			*rooms;
 }					t_path;
 
@@ -86,6 +86,7 @@ typedef struct		s_mem
 	int				n_lines;
 	int				*op;
 	int				speed;
+	int				tmp_count;
 }					t_mem;
 
 #endif

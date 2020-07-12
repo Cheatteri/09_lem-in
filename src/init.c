@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:22:52 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/10 19:38:48 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/12 17:43:41 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		get_ants(t_mem *mem)
 	int		res;
 
 	res = 0;
-	while (get_next_line(FROM, &line) > 0)
+	while (get_next_line_len(FROM, &line, 8) > 0)
 	{
 		if (line[0] != '#')
 		{
@@ -67,6 +67,7 @@ void	default_values(t_mem *mem)
 	mem->paths = NULL;
 	mem->rows = NULL;
 	mem->op = NULL;
+	mem->tmp_count = 0;
 }
 
 void	room_arr(t_mem *mem)
@@ -94,9 +95,12 @@ t_mem	*ft_init(char *str, int n)
 	mem->op = options(str, n);
 	mem->n_ants = get_ants(mem);
 	parse_lines(mem);
+	rev_rooms(mem);
+	rev_links(mem);
 	ft_validate_info(mem);
 	room_arr(mem);
 	start_end_rooms(mem);
+	mem->links = (int**)malloc(sizeof(int*) * (mem->n_rooms * 2));
 	make_links(mem);
 	return (mem);
 }
