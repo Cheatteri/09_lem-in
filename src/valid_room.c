@@ -6,11 +6,33 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 12:46:49 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/10 18:01:11 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/13 13:19:15 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem.h"
+
+int		check_coord(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	while (str[i] > 47 && str[i] < 58)
+		i++;
+	if (str[i] != '\0')
+		return (-1);
+	return (1);
+}
+
+void	free_room(t_room *room)
+{
+	free(room->name);
+	free(room->x);
+	free(room->y);
+	free(room);
+}
 
 t_room	*init_room(int pos, char **str, t_mem *mem, t_room **alst)
 {
@@ -32,6 +54,11 @@ t_room	*init_room(int pos, char **str, t_mem *mem, t_room **alst)
 		room->next = *alst;
 		*alst = room;
 	}
+	if (check_coord(str[1]) == -1 || check_coord(str[2]) == -1)
+	{
+		free_room(room);
+		return (NULL);
+	}
 	return (room);
 }
 
@@ -52,7 +79,8 @@ int		valid_room(char *line, t_mem *mem, int pos)
 		res = 1;
 	else
 	{
-		init_room(pos, str, mem, &mem->r_lst);
+		if (init_room(pos, str, mem, &mem->r_lst) == NULL)
+			res = 1;
 		mem->n_rooms++;
 	}
 	i = 0;

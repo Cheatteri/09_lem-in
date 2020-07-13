@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 19:49:46 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 15:23:33 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/13 12:31:20 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef struct		s_mem
 	int				*op;
 	int				speed;
 	int				tmp_count;
+	char			*end_line;
+	int				end_count;
 }					t_mem;
 
 #endif

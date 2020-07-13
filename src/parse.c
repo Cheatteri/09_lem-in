@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 12:23:06 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 17:45:59 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/13 12:52:23 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,8 @@ void	parse_lines(t_mem *mem)
 		else if ((skip = 1) && valid_link(line) == 0)
 			init_link(line, &mem->l_lst, mem);
 		else
-		{
-			if (line[0] && line[0] != '\n')
-				new_row(line, &mem->rows, mem);
-			else
-				free(line);
 			break ;
-		}
 		new_row(line, &mem->rows, mem);
 	}
+	mem->end_line = line;
 }

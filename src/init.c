@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:22:52 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 17:43:41 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/13 12:54:33 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ int		get_ants(t_mem *mem)
 {
 	char	*line;
 	int		res;
+	int		i;
 
 	res = 0;
-	while (get_next_line_len(FROM, &line, 8) > 0)
+	while ((i = get_next_line_len(FROM, &line, 8)) > 0)
 	{
 		if (line[0] != '#')
 		{
@@ -47,7 +48,11 @@ int		get_ants(t_mem *mem)
 		new_row(line, &mem->rows, mem);
 	}
 	if (res < 1)
+	{
+		if (i > 0)
+			mem->end_line = line;
 		ft_error("Invalid number of ants\n", mem);
+	}
 	return (res);
 }
 
@@ -67,7 +72,8 @@ void	default_values(t_mem *mem)
 	mem->paths = NULL;
 	mem->rows = NULL;
 	mem->op = NULL;
-	mem->tmp_count = 0;
+	mem->end_line = NULL;
+	mem->end_count = 0;
 }
 
 void	room_arr(t_mem *mem)
@@ -95,6 +101,7 @@ t_mem	*ft_init(char *str, int n)
 	mem->op = options(str, n);
 	mem->n_ants = get_ants(mem);
 	parse_lines(mem);
+	mem->end_count = mem->rows->n_row + 1;
 	rev_rooms(mem);
 	rev_links(mem);
 	ft_validate_info(mem);

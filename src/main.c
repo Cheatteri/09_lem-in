@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:14:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 18:03:41 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/13 13:30:08 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ void	ft_error(char *str, t_mem *mem)
 	{
 		ft_putstr_fd(str, 2);
 		exit(0);
+	}
+	if (mem->op[19] == 1 && mem->r_lst)
+	{
+		ft_putstr_fd("Final line read: [n:", 2);
+		ft_putnbr_fd(mem->end_count, 2);
+		ft_putstr_fd("] '", 2);
+		ft_putstr_fd(mem->end_line, 2);
+		ft_putstr_fd("'\n", 2);
 	}
 	if (mem->op && mem->op[21] == 1)
 	{
@@ -41,6 +49,11 @@ void	print_all(t_mem *mem)
 		print_paths(mem);
 	if (mem->op[25] == 1)
 		ft_printf("Number of ants: %d.\n", mem->n_ants);
+	if (mem->op[19] == 1)
+	{
+		ft_printf("Final line read: [n:%d] '%s'\n",
+		mem->end_count, mem->end_line);
+	}
 	if (mem->op[12] == 1)
 		ft_printf("Number of lines: %d.\n", mem->n_lines);
 	if (mem->op[9] == 1 && mem->tmp_count > 0)
@@ -55,6 +68,7 @@ void	print_all(t_mem *mem)
 ** -a	show number of ants at the end
 ** -e	show error message, incase of error
 ** -f	show leaks
+** -g	show last read row
 ** -h	show how to use
 ** -l	show link map for debug
 ** -n	show number of result rows

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 20:05:03 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/12 19:20:13 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/13 12:26:39 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define IN(x) (x * 2)
 # define OUT(x) (x * 2 + 1)
 
-# define OPTION_CHARS "aefhlnpqrst"
+# define OPTION_CHARS "aefghlnpqrst"
 
 void		ft_error(char *str, t_mem *mem);
 t_mem		*ft_init(char *str, int n);
